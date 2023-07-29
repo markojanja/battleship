@@ -2,6 +2,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-plusplus */
 import getRandomPosition from '../util';
+import Ship from './ship';
 
 export default class Gameboard {
   constructor(name, size) {
@@ -9,6 +10,14 @@ export default class Gameboard {
     this.name = name;
     this.gameboard = this.createBoard();
     this.occupied = new Set();
+    this.hits = new Set();
+    this.ships = [
+      new Ship('Carrier', 5),
+      new Ship('Battleship', 4),
+      new Ship('Submarine', 3),
+      new Ship('Destroyer', 3),
+      new Ship('Patrol ship', 2),
+    ];
   }
 
   createBoard() {
@@ -70,10 +79,10 @@ export default class Gameboard {
     return true;
   }
 
-  receveAttack(row, col, arr) {
+  receveAttack(row, col) {
     if (this.gameboard[row][col] !== 0) {
       const shipId = this.gameboard[row][col];
-      const res = arr.filter((ship) => ship.id === shipId);
+      const res = this.ships.filter((ship) => ship.id === shipId);
       res[0].hit(res[0], true);
       res[0].destroyed(res[0]);
       return true;
