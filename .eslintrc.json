@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": ["airbnb"],
+    "plugins":["prettier"],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["webpack.config.js", "**/dist/*.js","*.json","**/__tests__/*.js"],
+    "rules": {
+        "nonblock-statement-body-position":"off",
+        "no-param-reassign":"off",
+        "no-console":"off"
+    }
+}
