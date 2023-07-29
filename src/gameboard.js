@@ -79,12 +79,28 @@ export default class Gameboard {
     return true;
   }
 
+  randomHit() {
+    let hit = false;
+    while (!hit) {
+      const position = getRandomPosition(this.size);
+      if (!this.hits.has(`${position.row},${position.col}`)) {
+        // eslint-disable-next-line no-continue
+        this.receveAttack(position.row, position.col);
+        this.hits.add(`${position.row},${position.col}`);
+        hit = true;
+      }
+    }
+    return true;
+  }
+
   receveAttack(row, col) {
+    if (this.hits.has(`${row},${col}`)) return false;
     if (this.gameboard[row][col] !== 0) {
       const shipId = this.gameboard[row][col];
       const res = this.ships.filter((ship) => ship.id === shipId);
       res[0].hit(res[0], true);
       res[0].destroyed(res[0]);
+      this.hits.add(`${row},${col}`);
       return true;
     }
     return false;

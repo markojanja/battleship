@@ -40,13 +40,7 @@ describe('Board class properties and methods tests', () => {
   describe('ships are added randomly', () => {
     test('check is ship added horizontaly', () => {
       const board = new Gameboard('player', 5);
-      const arr = [
-        new Ship('transporter', 5),
-        new Ship('destroyer', 4),
-        new Ship('submarine', 3),
-        new Ship('patrol', 2),
-      ];
-      expect(board.placeRandom(arr)).toBeTruthy();
+      expect(board.placeRandom(board.ships)).toBeTruthy();
     });
   });
   describe('receve attacks', () => {
@@ -75,6 +69,18 @@ describe('Board class properties and methods tests', () => {
       board.receveAttack(0, 3);
       expect(board.ships[1].len).toBe(0);
       expect(board.ships[1].isSunk).toBeTruthy();
+      expect(board.receveAttack(0, 3)).toBeFalsy();
+      console.log('first: ', board.hits);
     });
+  });
+  describe('test random hit', () => {
+    const board = new Gameboard('player', 5);
+    board.placeShip(0, 0, board.ships[0]);
+    board.placeShip(1, 0, board.ships[1]);
+    board.placeShip(2, 0, board.ships[2]);
+    board.placeShip(3, 0, board.ships[3]);
+    board.placeShip(4, 0, board.ships[4]);
+    expect(board.randomHit()).toBeTruthy();
+    console.log(board.hits);
   });
 });
