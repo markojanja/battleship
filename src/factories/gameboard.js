@@ -1,7 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-plusplus */
-import getRandomPosition from '../util';
+import getRandomPosition from '../../util';
 
 export default class Gameboard {
   constructor(name, size) {
@@ -77,7 +74,6 @@ export default class Gameboard {
     while (!hit) {
       const position = getRandomPosition(this.size);
       if (!this.hits.has(`${position.row},${position.col}`)) {
-        // eslint-disable-next-line no-continue
         this.receveAttack(position.row, position.col);
         this.hits.add(`${position.row},${position.col}`);
         hit = true;

@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, 50px);
+  background-color: gray;
+  place-content: center;
+  height: 100vh;
+}
+
+.cell {
+  height: 50px;
+  width: 50px;
+  background-color: aliceblue;
+  border: 1px solid black;
+}

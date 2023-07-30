@@ -1,4 +1,4 @@
-import Ship from '../src/ship';
+import Ship from '../src/factories/ship';
 
 describe('Ship class properties and methods tests', () => {
   test('should reutrn name of the ship', () => {

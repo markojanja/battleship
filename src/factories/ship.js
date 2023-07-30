@@ -1,9 +1,6 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-unused-expressions */
-class Ship {
+export default class Ship {
   constructor(name, len) {
     this.name = name;
-    // eslint-disable-next-line prefer-destructuring
     this.id = name[0];
     this.len = len;
     this.isSunk = false;
@@ -21,5 +18,3 @@ class Ship {
     return ship.isSunk;
   }
 }
-
-export default Ship;

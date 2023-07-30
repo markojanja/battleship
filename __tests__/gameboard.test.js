@@ -1,5 +1,5 @@
-import Gameboard from '../src/gameboard';
-import Ship from '../src/ship';
+import Gameboard from '../src/factories/gameboard';
+import Ship from '../src/factories/ship';
 
 describe('Board class properties and methods tests', () => {
   const board = new Gameboard('player', 5);
@@ -38,7 +38,7 @@ describe('Board class properties and methods tests', () => {
   });
 
   describe('ships are added randomly', () => {
-    test('check is ship added horizontaly', () => {
+    test('check is ship added randomly', () => {
       const board = new Gameboard('player', 5);
       board.ships = [
         new Ship('Carrier', 5),

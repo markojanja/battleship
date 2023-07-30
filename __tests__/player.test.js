@@ -1,4 +1,4 @@
-import Player from '../src/player';
+import Player from '../src/factories/player';
 
 describe('player tests', () => {
   test('test player name', () => {
