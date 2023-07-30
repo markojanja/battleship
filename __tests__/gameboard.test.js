@@ -67,7 +67,6 @@ describe('Board class properties and methods tests', () => {
       expect(board.receveAttack(0, 3)).toBeTruthy();
       expect(board.receveAttack(0, 4)).toBeFalsy();
       expect(board.receveAttack(1, 1)).toBeFalsy();
-      console.log(board.ships);
     });
     test('receve attack and update ship len', () => {
       const board = new Gameboard('player', 5);
@@ -92,7 +91,6 @@ describe('Board class properties and methods tests', () => {
       expect(board.ships[1].len).toBe(0);
       expect(board.ships[1].isSunk).toBeTruthy();
       expect(board.receveAttack(0, 3)).toBeFalsy();
-      console.log('first: ', board.hits);
     });
   });
   describe('test random hit', () => {
@@ -110,6 +108,5 @@ describe('Board class properties and methods tests', () => {
     board.placeShip(3, 0, board.ships[3]);
     board.placeShip(4, 0, board.ships[4]);
     expect(board.randomHit()).toBeTruthy();
-    console.log(board.hits);
   });
 });
