@@ -40,12 +40,26 @@ describe('Board class properties and methods tests', () => {
   describe('ships are added randomly', () => {
     test('check is ship added horizontaly', () => {
       const board = new Gameboard('player', 5);
+      board.ships = [
+        new Ship('Carrier', 5),
+        new Ship('Battleship', 4),
+        new Ship('Submarine', 3),
+        new Ship('Destroyer', 3),
+        new Ship('Patrol ship', 2),
+      ];
       expect(board.placeRandom(board.ships)).toBeTruthy();
     });
   });
   describe('receve attacks', () => {
     test('receve attack', () => {
       const board = new Gameboard('player', 5);
+      board.ships = [
+        new Ship('Carrier', 5),
+        new Ship('Battleship', 4),
+        new Ship('Submarine', 3),
+        new Ship('Destroyer', 3),
+        new Ship('Patrol ship', 2),
+      ];
       board.placeShip(0, 0, board.ships[1]);
       expect(board.receveAttack(0, 0)).toBeTruthy();
       expect(board.receveAttack(0, 1)).toBeTruthy();
@@ -53,9 +67,17 @@ describe('Board class properties and methods tests', () => {
       expect(board.receveAttack(0, 3)).toBeTruthy();
       expect(board.receveAttack(0, 4)).toBeFalsy();
       expect(board.receveAttack(1, 1)).toBeFalsy();
+      console.log(board.ships);
     });
     test('receve attack and update ship len', () => {
       const board = new Gameboard('player', 5);
+      board.ships = [
+        new Ship('Carrier', 5),
+        new Ship('Battleship', 4),
+        new Ship('Submarine', 3),
+        new Ship('Destroyer', 3),
+        new Ship('Patrol ship', 2),
+      ];
       board.placeShip(0, 0, board.ships[1]);
       board.receveAttack(0, 0);
       expect(board.ships[1].len).toBe(3);
@@ -75,6 +97,13 @@ describe('Board class properties and methods tests', () => {
   });
   describe('test random hit', () => {
     const board = new Gameboard('player', 5);
+    board.ships = [
+      new Ship('Carrier', 5),
+      new Ship('Battleship', 4),
+      new Ship('Submarine', 3),
+      new Ship('Destroyer', 3),
+      new Ship('Patrol ship', 2),
+    ];
     board.placeShip(0, 0, board.ships[0]);
     board.placeShip(1, 0, board.ships[1]);
     board.placeShip(2, 0, board.ships[2]);
