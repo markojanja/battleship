@@ -25,13 +25,13 @@ export default class Gameboard {
     for (let i = 0; i < ship.len; i++) {
       if (
         (!ship.isVertical && col + i >= this.size) ||
-        this.occupied.has(`${row},${col + i}`)
+        (!ship.isVertical && this.occupied.has(`${row},${col + i}`))
       ) {
         return false;
       }
       if (
         (ship.isVertical && row + i >= this.size) ||
-        this.occupied.has(`${row + i},${col}`)
+        (ship.isVertical && this.occupied.has(`${row + i},${col}`))
       ) {
         return false;
       }
