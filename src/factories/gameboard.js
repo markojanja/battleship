@@ -1,4 +1,4 @@
-import getRandomPosition from '../../util';
+import getRandomPosition from '../utils/util';
 
 export default class Gameboard {
   constructor(name, size) {
@@ -7,7 +7,12 @@ export default class Gameboard {
     this.gameboard = this.createBoard();
     this.occupied = new Set();
     this.hits = new Set();
+    this.misses = new Set();
     this.ships = [];
+  }
+
+  allShipsSunk() {
+    return this.ships.every((ship) => ship.isSunk);
   }
 
   createBoard() {
@@ -73,25 +78,34 @@ export default class Gameboard {
     let hit = false;
     while (!hit) {
       const position = getRandomPosition(this.size);
-      if (!this.hits.has(`${position.row},${position.col}`)) {
+
+      if (this.hits.has(`${position.row},${position.col}`)) return false;
+      if (
+        !this.hits.has(`${position.row},${position.col}`) &&
+        this.gameboard[position.row][position.col] !== 0
+      ) {
         this.receveAttack(position.row, position.col);
         this.hits.add(`${position.row},${position.col}`);
         hit = true;
+        return true;
       }
+      this.misses.add(`${position.row},${position.col}`);
     }
-    return true;
+
+    return false;
   }
 
   receveAttack(row, col) {
-    if (this.hits.has(`${row},${col}`)) return false;
     if (this.gameboard[row][col] !== 0) {
       const shipId = this.gameboard[row][col];
-      const res = this.ships.filter((ship) => ship.id === shipId);
-      res[0].hit(res[0], true);
-      res[0].destroyed(res[0]);
+      const res = this.ships.find((ship) => ship.id === shipId);
+      res.hit(res, true);
+      res.destroyed(res);
       this.hits.add(`${row},${col}`);
       return true;
     }
+    this.hits.add(`${row},${col}`);
+
     return false;
   }
 }

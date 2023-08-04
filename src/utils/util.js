@@ -4,3 +4,14 @@ export default function getRandomPosition(size) {
     col: Math.floor(Math.random() * size),
   };
 }
+
+function clckHandler(cb) {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach((cell) => {
+    cell.addEventListener('click', () => {
+      cb();
+    });
+  });
+}
+
+export { clckHandler };

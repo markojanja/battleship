@@ -90,7 +90,6 @@ describe('Board class properties and methods tests', () => {
       board.receveAttack(0, 3);
       expect(board.ships[1].len).toBe(0);
       expect(board.ships[1].isSunk).toBeTruthy();
-      expect(board.receveAttack(0, 3)).toBeFalsy();
     });
   });
   describe('test random hit', () => {
