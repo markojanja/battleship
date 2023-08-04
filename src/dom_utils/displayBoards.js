@@ -12,7 +12,7 @@ export default function createPlayerBoard(player, board) {
       if (board.hits.has(`${row},${col}`)) {
         cell.style.background = 'gold';
       }
-      if (board.hits.has(`${row},${col}`) & (board.gameboard[row][col] !== 0)) {
+      if (board.hits.has(`${row},${col}`) && board.gameboard[row][col] !== 0) {
         cell.style.background = 'green';
       }
       cell.className = 'cell';
