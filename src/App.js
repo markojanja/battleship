@@ -47,11 +47,11 @@ function playerAttack() {
           playerTurn = true;
           return;
         }
-        cell.style.background = 'purple';
+        cell.classList.add('player-miss');
         console.log('missed ');
         const result = cpuBoard.receveAttack(Number(row), Number(col));
         if (result) {
-          cell.style.background = 'green';
+          cell.classList.add('hit');
           console.log('enemy is hit');
           console.log(cpuBoard.ships);
         }

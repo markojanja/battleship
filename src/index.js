@@ -1,4 +1,6 @@
-import app from './App';
+import loadMainPage from './dom_utils/createMainPage';
 import './app.scss';
 
-document.addEventListener('DOMContentLoaded', app);
+document.addEventListener('DOMContentLoaded', () => {
+  loadMainPage();
+});
