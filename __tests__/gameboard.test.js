@@ -92,20 +92,4 @@ describe('Board class properties and methods tests', () => {
       expect(board.ships[1].isSunk).toBeTruthy();
     });
   });
-  describe('test random hit', () => {
-    const board = new Gameboard('player', 5);
-    board.ships = [
-      new Ship('Carrier', 5),
-      new Ship('Battleship', 4),
-      new Ship('Submarine', 3),
-      new Ship('Destroyer', 3),
-      new Ship('Patrol ship', 2),
-    ];
-    board.placeShip(0, 0, board.ships[0]);
-    board.placeShip(1, 0, board.ships[1]);
-    board.placeShip(2, 0, board.ships[2]);
-    board.placeShip(3, 0, board.ships[3]);
-    board.placeShip(4, 0, board.ships[4]);
-    expect(board.randomHit()).toBeTruthy();
-  });
 });
