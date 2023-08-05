@@ -14,4 +14,8 @@ function clckHandler(cb) {
   });
 }
 
-export { clckHandler };
+function displayMessage(message) {
+  console.log(message);
+}
+
+export { clckHandler, displayMessage };

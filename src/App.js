@@ -1,9 +1,10 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
+import './app.scss';
 import Player from './factories/player';
 import Gameboard from './factories/gameboard';
 import createBoard from './dom_utils/displayBoard';
-import { clckHandler } from './utils/util';
+import getRandomPosition, { clckHandler, displayMessage } from './utils/util';
 import createGamePage from './dom_utils/createGamePage';
 import createPlayerBoard from './dom_utils/displayBoards';
 
@@ -23,15 +24,16 @@ export default function app() {
     createGamePage();
     createPlayerBoard(player, board);
     createPlayerBoard(cpu, cpuBoard);
-    addClickEvent();
+    playerAttack();
     gameLoop(player, board, cpu, cpuBoard);
   } else {
     createBoard(player, board);
+    // re-render setup screen after each cell cli
     clckHandler(app);
   }
 }
 
-function addClickEvent() {
+function playerAttack() {
   const cells = document.querySelectorAll('#cell-computer');
 
   cells.forEach((cell) => {
@@ -46,8 +48,9 @@ function addClickEvent() {
           return;
         }
         cell.style.background = 'purple';
-        const x = cpuBoard.receveAttack(Number(row), Number(col));
-        if (x) {
+        console.log('missed ');
+        const result = cpuBoard.receveAttack(Number(row), Number(col));
+        if (result) {
           cell.style.background = 'green';
           console.log('enemy is hit');
           console.log(cpuBoard.ships);
@@ -60,14 +63,10 @@ function addClickEvent() {
     });
   });
 }
-function cpuAttack(board) {
-  // Implement your CPU attack logic here
-  // For example, randomly select a cell to attack
-  const randomRow = Math.floor(Math.random() * 10);
-  const randomCol = Math.floor(Math.random() * 10);
 
-  // Perform CPU player's attack
-  const result = board.receveAttack(randomRow, randomCol);
+function cpuAttack(board) {
+  const position = getRandomPosition(board.size);
+  const result = board.receveAttack(position.row, position.col);
 
   if (result) {
     console.log('CPU Player: Hit!');
@@ -79,10 +78,12 @@ function cpuAttack(board) {
     gameOver = true;
   }
 }
+
 function gameLoop(player, playerBoard, cpu, cpuBoard) {
   if (gameOver) {
     const winner = playerBoard.allShipsSunk() ? cpu : player;
-    console.log(`Game Over! ${winner.name} wins!`);
+    const message = `Game Over! ${winner.name} wins!`;
+    displayMessage(message);
     return;
   }
   if (cpuBoard.allShipsSunk() || playerBoard.allShipsSunk()) {
