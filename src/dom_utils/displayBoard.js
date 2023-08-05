@@ -6,11 +6,14 @@ export default function createBoard(player, board) {
   const main = document.querySelector('.main');
   const container = createHtml('div', 'setup-board');
   const btn = createHtml('button', 'rotate-btn');
+  const title = createHtml('h2', 'setup-title');
+  title.textContent = 'Place your fleet';
   btn.textContent = 'rotate';
   btn.addEventListener('click', () => {
     player.fleet[0].isVertical = !player.fleet[0].isVertical;
   });
   clearHtml(main);
+  main.appendChild(title);
   main.appendChild(container);
   main.appendChild(btn);
 

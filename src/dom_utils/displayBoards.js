@@ -1,4 +1,5 @@
 import { clearHtml, createHtml } from '../utils/createHtml';
+import updateStyles from '../utils/updateStyles';
 
 export default function createPlayerBoard(player, board) {
   const playerBoard = document.querySelector(`.${player.name}`);
@@ -9,15 +10,7 @@ export default function createPlayerBoard(player, board) {
       cell.className = 'cell';
       cell.dataset.row = row;
       cell.dataset.col = col;
-      if (board.gameboard[row][col] !== 0 && player.name === 'player') {
-        cell.style.background = 'red';
-      }
-      if (board.hits.has(`${row},${col}`) && board.gameboard[row][col] !== 0) {
-        cell.classList.add('hit');
-      }
-      if (board.hits.has(`${row},${col}`)) {
-        cell.classList.add('cpu-miss');
-      }
+      updateStyles(cell, board, player, row, col);
       playerBoard.appendChild(cell);
     }
   }

@@ -31,6 +31,14 @@ body {
   letter-spacing: 3px;
   justify-content: flex-start; }
 
+.footer {
+  font-size: 1.3rem; }
+  .footer a {
+    text-decoration: none;
+    color: #131313; }
+  .footer i {
+    color: #131313; }
+
 .main {
   position: relative;
   display: flex;
@@ -123,6 +131,9 @@ body {
   transition: all 1s ease-in-out; }
 
 .hit {
-  background-color: green;
+  background-color: green !important;
   transition: all 0.1s ease-in-out; }
+
+.taken {
+  background-color: red; }
 

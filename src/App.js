@@ -4,7 +4,7 @@ import './app.scss';
 import Player from './factories/player';
 import Gameboard from './factories/gameboard';
 import createBoard from './dom_utils/displayBoard';
-import getRandomPosition, { clckHandler, displayMessage } from './utils/util';
+import { clckHandler, displayMessage } from './utils/util';
 import createGamePage from './dom_utils/createGamePage';
 import createPlayerBoard from './dom_utils/displayBoards';
 
@@ -28,7 +28,7 @@ export default function app() {
     gameLoop(player, board, cpu, cpuBoard);
   } else {
     createBoard(player, board);
-    // re-render setup screen after each cell cli
+    // re-render setup screen after each cell click
     clckHandler(app);
   }
 }
@@ -65,18 +65,9 @@ function playerAttack() {
 }
 
 function cpuAttack(board) {
-  const position = getRandomPosition(board.size);
-  const result = board.receveAttack(position.row, position.col);
-
-  if (result) {
-    console.log('CPU Player: Hit!');
-  } else {
-    console.log('CPU Player: Miss!');
-  }
-
-  if (board.allShipsSunk()) {
-    gameOver = true;
-  }
+  const result = board.randomHit();
+  result ? console.log('CPU Player: Hit!') : console.log('CPU Player: Miss!');
+  board.allShipsSunk() ? (gameOver = true) : (gameOver = false);
 }
 
 function gameLoop(player, playerBoard, cpu, cpuBoard) {

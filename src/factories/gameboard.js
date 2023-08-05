@@ -75,24 +75,13 @@ export default class Gameboard {
   }
 
   randomHit() {
-    let hit = false;
-    while (!hit) {
-      const position = getRandomPosition(this.size);
+    let position = getRandomPosition(this.size);
 
-      if (this.hits.has(`${position.row},${position.col}`)) return false;
-      if (
-        !this.hits.has(`${position.row},${position.col}`) &&
-        this.gameboard[position.row][position.col] !== 0
-      ) {
-        this.receveAttack(position.row, position.col);
-        this.hits.add(`${position.row},${position.col}`);
-        hit = true;
-        return true;
-      }
-      this.misses.add(`${position.row},${position.col}`);
+    while (this.hits.has(`${position.row},${position.col}`)) {
+      position = getRandomPosition(this.size);
     }
-
-    return false;
+    this.hits.add(`${position.row},${position.col}`);
+    return this.receveAttack(position.row, position.col);
   }
 
   receveAttack(row, col) {
