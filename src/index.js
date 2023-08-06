@@ -1,4 +1,4 @@
-import loadMainPage from './dom_utils/createMainPage';
+import loadMainPage from './modules/createMainPage';
 import './app.scss';
 
 document.addEventListener('DOMContentLoaded', () => {

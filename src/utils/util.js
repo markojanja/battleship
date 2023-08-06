@@ -8,14 +8,8 @@ export default function getRandomPosition(size) {
 function clckHandler(cb) {
   const cells = document.querySelectorAll('.cell');
   cells.forEach((cell) => {
-    cell.addEventListener('click', () => {
-      cb();
-    });
+    cell.addEventListener('click', cb);
   });
 }
 
-function displayMessage(message) {
-  console.log(message);
-}
-
-export { clckHandler, displayMessage };
+export { clckHandler };

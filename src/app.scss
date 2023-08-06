@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap');
 
+$primary-clr: #fff;
+$secondary-clr: #131313;
+$player-clr: #598db1;
+$miss-clr: #33c782;
+$hit-clr: #e2062c;
+$hover: #1d1d1d;
+$hover-ship: #21f286;
+
 * {
   margin: 0;
   padding: 0;
@@ -32,10 +40,10 @@ body {
   font-size: 1.3rem;
   a {
     text-decoration: none;
-    color: #131313;
+    color: $secondary-clr;
   }
   i {
-    color: #131313;
+    color: $secondary-clr;
   }
 }
 
@@ -57,8 +65,10 @@ body {
     width: 100%;
     flex: 1;
     gap: 40px;
-    background: url('/dist/assets/main1.jpg') center center no-repeat;
+    background-image: url('/dist/assets/main1.jpg');
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     &::after {
       content: '';
       position: absolute;
@@ -67,13 +77,17 @@ body {
       height: 100%;
       width: 100%;
       z-index: 1;
-      background-color: rgba($color: #fff, $alpha: 0.3);
+      background-color: rgba($primary-clr, $alpha: 0.3);
     }
     .page-title {
       font-size: 5rem;
-      color: #131313;
+      color: $secondary-clr;
       letter-spacing: 2rem;
       z-index: 2;
+      @media (max-width: 768px) {
+        font-size: 3rem;
+        letter-spacing: 1rem;
+      }
     }
   }
 
@@ -96,15 +110,32 @@ body {
     place-content: center;
     gap: 1px;
     padding: 1px;
-    background-color: black;
+    background-color: $secondary-clr;
+  }
+  .player,
+  .setup-board {
+    background: rgb(92, 70, 219);
+    background: radial-gradient(
+      circle,
+      rgb(15, 222, 250) 50%,
+      rgba(0, 1, 2, 0.995) 100%
+    );
+  }
+  .computer {
+    background: rgb(219, 70, 70);
+    background: radial-gradient(
+      circle,
+      rgb(245, 44, 44) 50%,
+      rgba(0, 1, 2, 0.995) 100%
+    );
   }
 }
 .start-game,
 .rotate-btn {
   position: relative;
   display: inline-block;
-  background-color: #131313;
-  color: #fff;
+  background-color: $secondary-clr;
+  color: $primary-clr;
   border: none;
   outline: none;
   padding: 15px 20px;
@@ -117,32 +148,114 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   &:hover {
-    background-color: rgba($color: #1d1d1d, $alpha: 1);
+    background-color: rgba($hover, $alpha: 1);
+  }
+}
+.rotate-btn {
+  z-index: 0;
+}
+.start-game {
+  animation: scale 1.7s ease-in-out infinite alternate;
+}
+@keyframes scale {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
 .cell {
   height: 100%;
   width: 100%;
-  background-color: aliceblue;
+  background-color: $primary-clr;
 }
 
 .ship-hover {
-  background-color: aquamarine;
+  background-color: #21f286;
   transition: all 0.2s ease-in-out;
 }
 .player-miss {
-  background-color: rgb(237, 20, 245);
+  background-color: $miss-clr;
   transition: all 0.1s ease-in-out;
 }
 .cpu-miss {
-  background-color: gold;
+  background-color: $miss-clr;
   transition: all 1s ease-in-out;
 }
 .hit {
-  background-color: green !important;
+  background-color: $hit-clr !important;
   transition: all 0.1s ease-in-out;
 }
 .taken {
-  background-color: red;
+  background-color: $player-clr;
+}
+
+.popup {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  background-color: $secondary-clr;
+  color: $primary-clr;
+  height: 200px;
+  width: 300px;
+}
+.player-popup {
+  display: none;
+  background-color: $secondary-clr;
+  color: #fff;
+  height: 100px;
+  width: 400px;
+}
+.show-popup {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.modal-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba($primary-clr, $alpha: 0.9);
+  .modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 600px;
+    background-color: $secondary-clr;
+    gap: 20px;
+    z-index: 25;
+    .modal-text {
+      color: $primary-clr;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+    .modal-btn {
+      display: inline-block;
+      cursor: pointer;
+      background-color: $primary-clr;
+      color: $secondary-clr;
+      border: none;
+      outline: none;
+      padding: 20px 30px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  }
 }

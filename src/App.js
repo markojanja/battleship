@@ -3,21 +3,25 @@
 import './app.scss';
 import Player from './factories/player';
 import Gameboard from './factories/gameboard';
-import createBoard from './dom_utils/displayBoard';
-import { clckHandler, displayMessage } from './utils/util';
-import createGamePage from './dom_utils/createGamePage';
-import createPlayerBoard from './dom_utils/displayBoards';
+import createBoard from './modules/displayBoard';
+import { clckHandler } from './utils/util';
+import createGamePage from './modules/createGamePage';
+import createPlayerBoard from './modules/displayBoards';
+import {
+  displayMessage,
+  displayModal,
+  removeMessage,
+} from './components/components';
 
-const player = new Player('player');
-const board = new Gameboard(player.name, 10);
-const cpu = new Player('computer');
-const cpuBoard = new Gameboard(player.name, 10);
+let player = new Player('player');
+let board = new Gameboard(player.name, 10);
+let cpu = new Player('computer');
+let cpuBoard = new Gameboard(player.name, 10);
 cpuBoard.ships = cpu.fleet;
 cpuBoard.placeRandom(cpu.fleet);
 cpu.fleet = [];
 let playerTurn = true;
 let gameOver = false;
-console.log(cpu.fleet, cpuBoard);
 
 export default function app() {
   if (!player.fleet.length) {
@@ -43,21 +47,28 @@ function playerAttack() {
         const col = cell.getAttribute('data-col');
 
         if (cpuBoard.hits.has(`${row},${col}`)) {
-          console.log('invalid move');
           playerTurn = true;
           return;
         }
-        cell.classList.add('player-miss');
-        console.log('missed ');
+        if (!result) {
+          cell.classList.add('player-miss');
+          displayMessage('we missed them');
+        }
         const result = cpuBoard.receveAttack(Number(row), Number(col));
         if (result) {
+          const shipsLeft = cpuBoard.ships.filter(
+            (ship) => ship.isSunk === false,
+          );
           cell.classList.add('hit');
-          console.log('enemy is hit');
-          console.log(cpuBoard.ships);
+          displayMessage(
+            `we hit them, they have  ${shipsLeft.length} more ships`,
+          );
         }
         if (cpuBoard.allShipsSunk() || board.allShipsSunk()) {
           gameOver = true;
+          removeMessage();
         }
+
         playerTurn = false;
       }
     });
@@ -66,7 +77,11 @@ function playerAttack() {
 
 function cpuAttack(board) {
   const result = board.randomHit();
-  result ? console.log('CPU Player: Hit!') : console.log('CPU Player: Miss!');
+  let message;
+  result ? (message = 'CPU Player: Hit!') : (message = 'CPU Player: Miss!');
+  setTimeout(() => {
+    displayMessage(message);
+  }, 500);
   board.allShipsSunk() ? (gameOver = true) : (gameOver = false);
 }
 
@@ -74,7 +89,7 @@ function gameLoop(player, playerBoard, cpu, cpuBoard) {
   if (gameOver) {
     const winner = playerBoard.allShipsSunk() ? cpu : player;
     const message = `Game Over! ${winner.name} wins!`;
-    displayMessage(message);
+    displayModal(resetGame, message);
     return;
   }
   if (cpuBoard.allShipsSunk() || playerBoard.allShipsSunk()) {
@@ -87,5 +102,20 @@ function gameLoop(player, playerBoard, cpu, cpuBoard) {
     playerTurn = true;
   }
 
-  requestAnimationFrame(() => gameLoop(player, playerBoard, cpu, cpuBoard));
+  setTimeout(() => gameLoop(player, playerBoard, cpu, cpuBoard), 0);
+}
+
+function resetGame() {
+  // Reset the game state variables
+  player = new Player('player');
+  board = new Gameboard(player.name, 10);
+  cpu = new Player('computer');
+  cpuBoard = new Gameboard(player.name, 10);
+  cpuBoard.ships = cpu.fleet;
+  cpuBoard.placeRandom(cpu.fleet);
+  cpu.fleet = [];
+  playerTurn = true;
+  gameOver = false;
+  removeMessage();
+  app();
 }

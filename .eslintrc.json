@@ -14,7 +14,7 @@
     "rules": {
         "nonblock-statement-body-position":"off",
         "no-param-reassign":"off",
-        "no-console":"off",
+        // "no-console":"off",
         "no-plusplus":"off",
         "max-len":"off",
         "class-methods-use-this":"off",

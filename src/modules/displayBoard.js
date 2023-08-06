@@ -21,7 +21,7 @@ export default function createBoard(player, board) {
     for (let col = 0; col < board.size; col++) {
       const cell = document.createElement('div');
       if (board.gameboard[row][col] !== 0) {
-        cell.style.background = 'red';
+        cell.style.background = '#598DB1';
       }
 
       cell.className = 'cell';

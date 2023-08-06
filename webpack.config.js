@@ -24,4 +24,11 @@ module.exports = {
   },
   plugins: [new MiniCssExtractPlugin()],
   // ... other Webpack configurations ...
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3000,
+  },
 };
