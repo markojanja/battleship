@@ -57,7 +57,7 @@ To install and run the Battleship Game on your local machine, follow these steps
 To run the Battleship Game, execute the following command:
 
 ```bash
-npm run build
+npm start
 ```
 
 This will start the development server, and you can access the game in your web browser at http://localhost:3000.
