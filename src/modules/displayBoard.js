@@ -20,11 +20,11 @@ export default function createBoard(player, board) {
   for (let row = 0; row < board.size; row++) {
     for (let col = 0; col < board.size; col++) {
       const cell = document.createElement('div');
+      cell.classList.add('cell');
       if (board.gameboard[row][col] !== 0) {
-        cell.style.background = '#598DB1';
+        // cell.style.background = '#598DB1';
+        cell.classList.add('taken');
       }
-
-      cell.className = 'cell';
       cell.dataset.row = row;
       cell.dataset.col = col;
       container.appendChild(cell);
@@ -53,9 +53,7 @@ function handleClick(e, player, board) {
     board.placeShip(r, c, player.fleet[0]);
     board.ships.push(player.fleet[0]);
     player.fleet.shift();
-    createBoard(player, board);
   }
-  createBoard(player, board);
 }
 
 function showHoverEffect(row, col, player) {
